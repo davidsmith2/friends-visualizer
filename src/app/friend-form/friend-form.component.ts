@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Friend } from '../state/friends.reducer';
 
 @Component({
   selector: 'app-friend-form',
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./friend-form.component.scss']
 })
 export class FriendFormComponent {
+  @Output() save: EventEmitter<Friend> = new EventEmitter();
 
   friends = [
     {
@@ -66,6 +68,7 @@ export class FriendFormComponent {
 
   onSave(event: Event) {
     event.preventDefault();
+    this.save.emit({...this.formGroup.value, id: new Date().getTime()});
   }
 
   onReset(event: Event) {

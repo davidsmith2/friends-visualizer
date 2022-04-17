@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { saveFriend } from './state/friends.actions';
+import { Friend } from './state/friends.reducer';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'secureworks-coding-challenge';
+
+  constructor(private store: Store<any>) { }
+
+  saveFriend(friend: Friend) {
+    this.store.dispatch(saveFriend(friend));
+  }
 }

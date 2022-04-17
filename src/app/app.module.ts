@@ -13,6 +13,7 @@ import { FriendFormComponent } from './friend-form/friend-form.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { friendsReducer } from './state/friends.reducer';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { environment } from '../environments/environment';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({friends: friendsReducer}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
