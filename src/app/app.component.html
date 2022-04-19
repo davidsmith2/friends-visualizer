@@ -1,1 +1,1 @@
-<app-friend-form (save)="saveFriend($event)"></app-friend-form>
+<app-friend-form [friends]="friends$ | async" (save)="saveFriend($event)"></app-friend-form>

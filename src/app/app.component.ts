@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { selectFriendEntities } from './state/friends.selectors';
 import { saveFriend } from './state/friends.actions';
 import { Friend } from './state/friends.reducer';
 
@@ -10,6 +12,7 @@ import { Friend } from './state/friends.reducer';
 })
 export class AppComponent {
   title = 'secureworks-coding-challenge';
+  friends$: Observable<any> = this.store.pipe(select(selectFriendEntities));
 
   constructor(private store: Store<any>) { }
 

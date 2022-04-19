@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Friend } from '../state/friends.reducer';
 
@@ -7,60 +7,24 @@ import { Friend } from '../state/friends.reducer';
   templateUrl: './friend-form.component.html',
   styleUrls: ['./friend-form.component.scss']
 })
-export class FriendFormComponent {
+export class FriendFormComponent implements OnInit, OnChanges {
+  @Input() friends: Array<Friend>;
   @Output() save: EventEmitter<Friend> = new EventEmitter();
-
-  friends = [
-    {
-      id: 1,
-      name: 'Rachel',
-      friends: [],
-      age: 25,
-      weight: 100
-    },
-    {
-      id: 2,
-      name: 'Monica',
-      friends: [],
-      age: 25,
-      weight: 100
-    },
-    {
-      id: 3,
-      name: 'Phoebe',
-      friends: [],
-      age: 25,
-      weight: 100
-    },
-    {
-      id: 4,
-      name: 'Joey',
-      friends: [],
-      age: 25,
-      weight: 100
-    },
-    {
-      id: 5,
-      name: 'Chandler',
-      friends: [],
-      age: 25,
-      weight: 100
-    },
-    {
-      id: 6,
-      name: 'Ross',
-      friends: [],
-      age: 25,
-      weight: 100
-    }
-  ];
 
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder) { }
+
+  ngOnChanges(): void {
+    if (this.friends.length) {
+      this.formGroup.controls['friends'].enable();
+    }
+  }
+
+  ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       name: [null],
-      friends: [null],
+      friends: [{value: null, disabled: !this.friends.length}],
       age: [null],
       weight: [null]
     });
@@ -69,6 +33,7 @@ export class FriendFormComponent {
   onSave(event: Event) {
     event.preventDefault();
     this.save.emit({...this.formGroup.value, id: new Date().getTime()});
+    this.formGroup.reset();
   }
 
   onReset(event: Event) {
