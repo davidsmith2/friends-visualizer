@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { provideMockStore } from '@ngrx/store/testing'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -11,6 +12,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        provideMockStore()
+      ]
     }).compileComponents();
   });
 
@@ -26,10 +30,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('secureworks-coding-challenge');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('secureworks-coding-challenge app is running!');
-  });
 });
