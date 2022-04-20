@@ -1,3 +1,8 @@
+/**
+ * This component implements a basic network chart in D3.
+ * @see https://d3-graph-gallery.com/graph/network_basic.html
+ */
+
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
 import { SimulationNodeDatum } from 'd3';
