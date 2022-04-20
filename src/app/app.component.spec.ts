@@ -2,6 +2,23 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { provideMockStore } from '@ngrx/store/testing'
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-friend-form',
+  template: '<div>test</div>'
+})
+export class MockFriendFormComponent {
+  @Input() friends: any;
+}
+
+@Component({
+  selector: 'app-friend-viz',
+  template: '<div>test</div>'
+})
+export class MockFriendVizComponent {
+  @Input() data: any;
+}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,7 +27,9 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        MockFriendFormComponent,
+        MockFriendVizComponent
       ],
       providers: [
         provideMockStore()
