@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/secureworks-coding-challenge'),
+      dir: require('path').join(__dirname, './coverage/friends-visualizer'),
       subdir: '.',
       reporters: [
         { type: 'html' },

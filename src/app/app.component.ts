@@ -11,7 +11,7 @@ import { Friend } from './state/friends.reducer';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'secureworks-coding-challenge';
+  title = 'friends-visualizer';
   friends$: Observable<Array<Friend>> = this.store.pipe(select(selectFriendEntities));
   vizData$: Observable<VizData> = this.store.pipe(select(selectVizData));
 

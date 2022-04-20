@@ -43,10 +43,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'secureworks-coding-challenge'`, () => {
+  it(`should have as title 'friends-visualizer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('secureworks-coding-challenge');
+    expect(app.title).toEqual('friends-visualizer');
   });
 
 });
