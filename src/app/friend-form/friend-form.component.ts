@@ -30,13 +30,13 @@ export class FriendFormComponent implements OnInit, OnChanges {
     });
   }
 
-  onSave(event: Event) {
+  onSave(event: Event): void {
     event.preventDefault();
     this.save.emit({...this.formGroup.value, id: new Date().getTime()});
     this.formGroup.reset();
   }
 
-  onReset(event: Event) {
+  onReset(event: Event): void {
     event.preventDefault();
     this.formGroup.reset();
   }

@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import * as d3 from 'd3';
+import { SimulationNodeDatum } from 'd3';
+import { VizData } from '../state/friends.selectors';
 
 @Component({
   selector: 'app-friend-viz',
@@ -7,7 +9,7 @@ import * as d3 from 'd3';
   styleUrls: ['./friend-viz.component.scss']
 })
 export class FriendVizComponent implements OnInit, OnChanges {
-  @Input() data: any;
+  @Input() data: VizData;
 
   private margin = {top: 10, right: 30, bottom: 30, left: 40};
   private width = 400 - this.margin.left - this.margin.right;
@@ -22,9 +24,9 @@ export class FriendVizComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.svg) {
       // Initialize the links
-      this.link = this.initializeLinks(changes['data'].currentValue.links);
+      this.link = this.initializeLinks(changes['data'].currentValue);
       // Initialize the nodes
-      this.node = this.initializeNodes(changes['data'].currentValue.nodes);
+      this.node = this.initializeNodes(changes['data'].currentValue);
       // Let's list the force we wanna apply on the network
       this.simulation = this.initializeSimulation(changes['data'].currentValue);
     }
@@ -45,28 +47,28 @@ export class FriendVizComponent implements OnInit, OnChanges {
       .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
   }
 
-  private initializeLinks(links: any): any {
+  private initializeLinks(vizData: VizData): any {
     return this.svg
       .selectAll("line")
-      .data(links)
+      .data(vizData.links)
       .enter()
       .append("line")
       .style("stroke", "#aaa");
   }
 
-  private initializeNodes(nodes: any): any {
+  private initializeNodes(vizData: VizData): any {
     return this.svg
       .selectAll("circle")
-      .data(nodes)
+      .data(vizData.nodes)
       .enter()
       .append("circle")
       .attr("r", 20)
       .style("fill", "#69b3a2");
   }
 
-  private initializeSimulation(data: any): any {
-    return d3.forceSimulation(data.nodes)
-      .force("link", d3.forceLink().id((d: any) => d.id).links(data.links))
+  private initializeSimulation(vizData: VizData): any {
+    return d3.forceSimulation(vizData.nodes as Array<SimulationNodeDatum>)
+      .force("link", d3.forceLink().id((d: any) => d.id).links(vizData.links))
       .force("charge", d3.forceManyBody().strength(-400))
       .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .on("end", this.ticked.bind(this));
