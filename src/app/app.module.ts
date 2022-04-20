@@ -14,11 +14,13 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { friendsReducer } from './state/friends.reducer';
+import { FriendVizComponent } from './friend-viz/friend-viz.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FriendFormComponent
+    FriendFormComponent,
+    FriendVizComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,28 @@ import { Friend } from './state/friends.reducer';
 export class AppComponent {
   title = 'secureworks-coding-challenge';
   friends$: Observable<any> = this.store.pipe(select(selectFriendEntities));
+  vizData$: Observable<any> = this.friends$.pipe(
+    map((friends: Array<Friend>) => {
+      const nodes: Array<Partial<Friend>> = friends.map((friend: Friend) => {
+        return {
+          id: friend.id,
+          name: friend.name
+        };
+      });
+      const links: Array<{source: number, target: number}> = [];
+      friends.forEach((source: Friend) => {
+        if (source.friends) {
+          source.friends.forEach((target: number) => {
+            links.push({
+              source: source.id,
+              target: target
+            });
+          });
+        }
+      });
+      return {nodes, links};
+    })
+  );
 
   constructor(private store: Store<any>) { }
 
