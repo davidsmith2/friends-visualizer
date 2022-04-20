@@ -2,7 +2,11 @@ import { Friend } from "./friends.reducer";
 
 import { createAction, props } from '@ngrx/store';
 
+export enum FriendsActionType {
+  SAVE_FRIEND = '[Friends] Save Friend'
+};
+
 export const saveFriend = createAction(
-  '[Friends] Save Friend',
+  FriendsActionType.SAVE_FRIEND,
   props<Friend>()
 );
